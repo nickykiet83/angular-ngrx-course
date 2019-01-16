@@ -23,7 +23,7 @@ export class AppComponent implements OnInit {
     }
 
     logout() {
-        this.store.dispatch(new Logout(undefined));
+        this.store.dispatch(new Logout());
     }
 
 
