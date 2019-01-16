@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
         ) {
 
         this.form = fb.group({
-            email: ['test@angular-university.io', [Validators.required]],
+            email: ['test@angular-university.io', [Validators.required, Validators.email]],
             password: ['test', [Validators.required]]
         });
 
@@ -38,8 +38,19 @@ export class LoginComponent implements OnInit {
     }
 
     login() {
+        const val = this.form.value;
+        this.auth.login(val.email, val.password)
+            .pipe(
+                tap(user => {
+                    this.store.dispatch(new Login({user}));
 
-        this.store.dispatch(new Login());
+                    this.router.navigateByUrl('/courses');
+                })
+            )
+            .subscribe(
+                noop,
+                () => alert('Login Failed'),
+            );
 
     }
 
