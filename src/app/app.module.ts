@@ -1,3 +1,5 @@
+import { CustomSerializer } from './shared/utils';
+import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { MatListModule, MatSidenavModule, MatToolbarModule } from '@angular/material';
@@ -49,9 +51,11 @@ const routes: Routes = [
         StoreModule.forRoot(reducers, { metaReducers }),
         !environment.production ? StoreDevtoolsModule.instrument() : [],
         EffectsModule.forRoot([]),
-
+        StoreRouterConnectingModule.forRoot({stateKey: 'router'}),
     ],
-    providers: [],
+    providers: [
+        { provide: RouterStateSerializer, useClass: CustomSerializer }
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {
