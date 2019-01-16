@@ -12,7 +12,8 @@ export const initialAuthState: AuthState = {
     user: undefined,
 };
 
-export function authReducer(state = initialAuthState, action: AuthActions): AuthState {
+export function authReducer(state = initialAuthState,
+                            action: AuthActions): AuthState {
     switch (action.type) {
         case AuthActionTypes.LoginAction:
             return {
@@ -25,6 +26,7 @@ export function authReducer(state = initialAuthState, action: AuthActions): Auth
                 loggedIn: false,
                 user: undefined,
             };
+
         default:
             return state;
     }
