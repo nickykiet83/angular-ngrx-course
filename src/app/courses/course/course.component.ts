@@ -1,11 +1,11 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {MatPaginator, MatTableDataSource} from "@angular/material";
-import {Course} from "../model/course";
-import {CoursesService} from "../services/courses.service";
-import {debounceTime, distinctUntilChanged, startWith, tap, delay} from 'rxjs/operators';
-import {merge, fromEvent} from "rxjs";
-import {LessonsDataSource} from "../services/lessons.datasource";
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+import { MatPaginator, MatTableDataSource } from "@angular/material";
+import { Course } from "../model/course";
+import { CoursesService } from "../services/courses.service";
+import { debounceTime, distinctUntilChanged, startWith, tap, delay } from 'rxjs/operators';
+import { merge, fromEvent } from "rxjs";
+import { LessonsDataSource } from "../services/lessons.datasource";
 
 
 @Component({
@@ -15,17 +15,17 @@ import {LessonsDataSource} from "../services/lessons.datasource";
 })
 export class CourseComponent implements OnInit, AfterViewInit {
 
-    course:Course;
+    course: Course;
 
     dataSource: LessonsDataSource;
 
-    displayedColumns= ["seqNo", "description", "duration"];
+    displayedColumns = ["seqNo", "description", "duration"];
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
 
     constructor(private route: ActivatedRoute,
-                private coursesService: CoursesService) {
+        private coursesService: CoursesService) {
 
     }
 
@@ -42,10 +42,10 @@ export class CourseComponent implements OnInit, AfterViewInit {
     ngAfterViewInit() {
 
         this.paginator.page
-        .pipe(
-            tap(() => this.loadLessonsPage())
-        )
-        .subscribe();
+            .pipe(
+                tap(() => this.loadLessonsPage())
+            )
+            .subscribe();
 
     }
 
