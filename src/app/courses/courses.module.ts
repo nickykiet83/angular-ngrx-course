@@ -29,6 +29,7 @@ import { HomeComponent } from './home/home.component';
 import { CourseResolver } from './services/course.resolver';
 import { CoursesService } from './services/courses.service';
 import { coursesReducer } from './course.reducer';
+import { lessonsReducer } from './lessons.reducer';
 
 
 
@@ -70,6 +71,7 @@ export const coursesRoutes: Routes = [
         RouterModule.forChild(coursesRoutes),
         EffectsModule.forFeature([CourseEffects]),
         StoreModule.forFeature('courses', coursesReducer),
+        StoreModule.forFeature('lessons', lessonsReducer),
     ],
     declarations: [HomeComponent, CoursesCardListComponent, CourseDialogComponent, CourseComponent],
     exports: [HomeComponent, CoursesCardListComponent, CourseDialogComponent, CourseComponent],

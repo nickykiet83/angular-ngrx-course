@@ -1,13 +1,10 @@
+import { PageQuery } from './../course.action';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
+import { Store } from '@ngrx/store';
+import { BehaviorSubject, Observable } from 'rxjs';
 
-
-
-import { CollectionViewer, DataSource } from "@angular/cdk/collections";
-import { Observable, BehaviorSubject, of } from "rxjs";
-import { Lesson } from "../model/lesson";
-import { CoursesService } from "./courses.service";
-import { catchError, finalize } from "rxjs/operators";
-
-
+import { Lesson } from '../model/lesson';
+import { AppState } from './../../reducers';
 
 export class LessonsDataSource implements DataSource<Lesson> {
 
@@ -17,21 +14,14 @@ export class LessonsDataSource implements DataSource<Lesson> {
 
     public loading$ = this.loadingSubject.asObservable();
 
-    constructor(private coursesService: CoursesService) {
+    constructor(private store: Store<AppState>) {
 
     }
 
-    loadLessons(courseId: number,
-        pageIndex: number,
-        pageSize: number) {
+    loadLessons(courseId: number, page: PageQuery) {
 
         this.loadingSubject.next(true);
 
-        this.coursesService.findLessons(courseId, pageIndex, pageSize).pipe(
-            catchError(() => of([])),
-            finalize(() => this.loadingSubject.next(false))
-        )
-            .subscribe(lessons => this.lessonsSubject.next(lessons));
 
     }
 
