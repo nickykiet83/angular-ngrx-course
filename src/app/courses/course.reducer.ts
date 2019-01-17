@@ -17,6 +17,8 @@ export function coursesReducer(state = initialCoursesState, action: CourseAction
         case CourseActionTypes.CourseLoaded:
             return adapter.addOne(action.payload.course, state);
 
+        case CourseActionTypes.AllCoursesLoaded:
+            return adapter.addAll(action.payload.courses, { ...state, allCourseLoaded: true  });
         default: {
             return state;
         }

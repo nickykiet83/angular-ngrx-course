@@ -1,12 +1,11 @@
-import { AllCoursesRequested } from './../course.action';
-import { Store, select } from '@ngrx/store';
-import {Component, OnInit} from '@angular/core';
-import {Course} from "../model/course";
-import {Observable} from "rxjs";
-import {map} from "rxjs/operators";
-import {CoursesService} from "../services/courses.service";
+import { Component, OnInit } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+
 import { AppState } from '../../reducers';
-import { selectAllCourses } from '../course.selector';
+import { selectAdvancedCourses, selectAllCourses, selectBeginnerCourses, selectPromoTotal } from '../course.selector';
+import { Course } from '../model/course';
+import { AllCoursesRequested } from './../course.action';
 
 @Component({
     selector: 'home',
@@ -28,22 +27,20 @@ export class HomeComponent implements OnInit {
 
         this.store.dispatch(new AllCoursesRequested());
 
-        const courses$ = this.store
+        this.beginnerCourses$ = this.store
             .pipe(
-                select(selectAllCourses),
+                select(selectBeginnerCourses)
+            ),
+
+        this.advancedCourses$ = this.store
+            .pipe(
+                select(selectAdvancedCourses)
             );
 
-        this.beginnerCourses$ = courses$.pipe(
-          map(courses => courses.filter(course => course.category === 'BEGINNER') )
-        );
-
-        this.advancedCourses$ = courses$.pipe(
-            map(courses => courses.filter(course => course.category === 'ADVANCED') )
-        );
-
-        this.promoTotal$ = courses$.pipe(
-            map(courses => courses.filter(course => course.promo).length)
-        );
+        this.promoTotal$ = this.store
+            .pipe(
+                select(selectPromoTotal)
+            );
 
     }
 
