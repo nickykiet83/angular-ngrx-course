@@ -13,7 +13,7 @@ export function searchLessons(req: Request, res: Response) {
 
     const queryParams = req.query;
 
-    const courseId = queryParams.courseId,
+    const courseId = parseInt(queryParams.courseId, 0),
         filter = queryParams.filter || '',
         sortOrder = queryParams.sortOrder,
         pageNumber = parseInt(queryParams.pageNumber, 0) || 0,
