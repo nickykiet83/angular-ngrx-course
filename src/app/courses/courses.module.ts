@@ -1,3 +1,4 @@
+import { StoreModule } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -27,6 +28,7 @@ import { CoursesCardListComponent } from './courses-card-list/courses-card-list.
 import { HomeComponent } from './home/home.component';
 import { CourseResolver } from './services/course.resolver';
 import { CoursesService } from './services/courses.service';
+import { coursesReducer } from './course.reducer';
 
 
 
@@ -67,6 +69,7 @@ export const coursesRoutes: Routes = [
         ReactiveFormsModule,
         RouterModule.forChild(coursesRoutes),
         EffectsModule.forFeature([CourseEffects]),
+        StoreModule.forFeature('courses', coursesReducer),
     ],
     declarations: [HomeComponent, CoursesCardListComponent, CourseDialogComponent, CourseComponent],
     exports: [HomeComponent, CoursesCardListComponent, CourseDialogComponent, CourseComponent],
