@@ -11,9 +11,6 @@ import { CourseRequested } from './../course.action';
 import { CoursesService } from './courses.service';
 
 
-
-
-
 @Injectable()
 export class CourseResolver implements Resolve<Course> {
 
