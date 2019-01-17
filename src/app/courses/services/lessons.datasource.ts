@@ -1,10 +1,12 @@
-import { PageQuery } from './../course.action';
+import { PageQuery, LessonsPageRequested } from './../course.action';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
-import { Store } from '@ngrx/store';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 import { Lesson } from '../model/lesson';
 import { AppState } from './../../reducers';
+import { selectLessonsPage } from '../course.selector';
+import { tap, catchError } from 'rxjs/operators';
 
 export class LessonsDataSource implements DataSource<Lesson> {
 
@@ -20,8 +22,19 @@ export class LessonsDataSource implements DataSource<Lesson> {
 
     loadLessons(courseId: number, page: PageQuery) {
 
-        this.loadingSubject.next(true);
+        this.store
+            .pipe(
+                select(selectLessonsPage(courseId, page)),
+                tap(lessons => {
 
+                    if (lessons.length > 0) {
+                        this.lessonsSubject.next(lessons);
+                    } else {
+                        this.store.dispatch(new LessonsPageRequested({courseId, page}));
+                    }
+                }),
+                catchError(err => of([]))
+            ).subscribe();
 
     }
 
@@ -36,4 +49,3 @@ export class LessonsDataSource implements DataSource<Lesson> {
     }
 
 }
-

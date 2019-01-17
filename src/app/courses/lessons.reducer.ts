@@ -1,4 +1,4 @@
-import { CourseActions } from './course.action';
+import { CourseActions, CourseActionTypes } from './course.action';
 import { Lesson } from './model/lesson';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
@@ -24,6 +24,10 @@ const intialLessonsState = adapter.getInitialState();
 export function lessonsReducer(state = intialLessonsState, action: CourseActions): LessonsState {
 
     switch (action.type) {
+        case CourseActionTypes.LessonsPageLoaded:
+
+            return adapter.addMany(action.payload.lessons, state);
+
         default:
             return state;
     }
