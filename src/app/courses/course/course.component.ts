@@ -1,14 +1,15 @@
-import { PageQuery } from './../course.action';
-import { Store } from '@ngrx/store';
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
-import { MatPaginator, MatTableDataSource } from "@angular/material";
-import { Course } from "../model/course";
-import { CoursesService } from "../services/courses.service";
-import { debounceTime, distinctUntilChanged, startWith, tap, delay } from 'rxjs/operators';
-import { merge, fromEvent } from "rxjs";
-import { LessonsDataSource } from "../services/lessons.datasource";
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material';
+import { ActivatedRoute } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import { tap } from 'rxjs/operators';
+
 import { AppState } from '../../reducers';
+import { Course } from '../model/course';
+import { LessonsDataSource } from '../services/lessons.datasource';
+import { PageQuery } from './../course.action';
+import { selectLessonsLoading } from '../course.selector';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class CourseComponent implements OnInit, AfterViewInit {
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
 
+    loading$: Observable<boolean>;
 
     constructor(private route: ActivatedRoute, private store: Store<AppState>) {
 
@@ -36,6 +38,8 @@ export class CourseComponent implements OnInit, AfterViewInit {
         this.course = this.route.snapshot.data["course"];
 
         this.dataSource = new LessonsDataSource(this.store);
+
+        this.loading$ = this.store.pipe(select(selectLessonsLoading));
 
         const initialPage: PageQuery = {
             pageIndex: 0,

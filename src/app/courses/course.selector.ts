@@ -1,10 +1,9 @@
-import { LessonsState } from './lessons.reducer';
-import { PageQuery } from './course.action';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 
+import { PageQuery } from './course.action';
 import { CoursesState } from './course.reducer';
-
 import * as fromCourse from './course.reducer';
+import { LessonsState } from './lessons.reducer';
 import * as fromLesson from './lessons.reducer';
 
 
@@ -64,3 +63,7 @@ export const selectLessonsPage = (courseId: number, page: PageQuery) => createSe
     }
 );
 
+export const selectLessonsLoading = createSelector(
+    selectLessonsState,
+    lessonsState => lessonsState.loading
+);

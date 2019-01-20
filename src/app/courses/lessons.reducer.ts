@@ -3,6 +3,7 @@ import { Lesson } from './model/lesson';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 
 export interface LessonsState extends EntityState<Lesson> {
+    loading: boolean;
 }
 
 function sortByCourseAndSeqNo(l1: Lesson, l2: Lesson) {
@@ -19,14 +20,23 @@ export const adapter: EntityAdapter<Lesson> = createEntityAdapter<Lesson>({
     sortComparer: sortByCourseAndSeqNo
 });
 
-const intialLessonsState = adapter.getInitialState();
+const intialLessonsState = adapter.getInitialState({
+    loading: false,
+});
 
 export function lessonsReducer(state = intialLessonsState, action: CourseActions): LessonsState {
 
     switch (action.type) {
+        case CourseActionTypes.LessonsPageRequested:
+            return {
+                ...state,
+                loading: true
+            };
+
         case CourseActionTypes.LessonsPageLoaded:
 
-            return adapter.addMany(action.payload.lessons, state);
+            return adapter.addMany(action.payload.lessons,
+                { ...state, loading: false });
 
         default:
             return state;
