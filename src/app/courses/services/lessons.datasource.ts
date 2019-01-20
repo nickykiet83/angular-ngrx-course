@@ -1,7 +1,7 @@
 import { PageQuery, LessonsPageRequested } from './../course.action';
 import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { Store, select } from '@ngrx/store';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of, Subscription } from 'rxjs';
 
 import { Lesson } from '../model/lesson';
 import { AppState } from './../../reducers';
@@ -16,12 +16,14 @@ export class LessonsDataSource implements DataSource<Lesson> {
 
     public loading$ = this.loadingSubject.asObservable();
 
-    constructor(private store: Store<AppState>) {
+    private unsubscribe: Subscription;
 
+    constructor(private store: Store<AppState>) {
+        this.unsubscribe = this.lessonsSubject.subscribe();
     }
 
     loadLessons(courseId: number, page: PageQuery) {
-
+        this.unsubscribe.unsubscribe();
         this.store
             .pipe(
                 select(selectLessonsPage(courseId, page)),
@@ -47,5 +49,4 @@ export class LessonsDataSource implements DataSource<Lesson> {
         this.lessonsSubject.complete();
         this.loadingSubject.complete();
     }
-
 }
