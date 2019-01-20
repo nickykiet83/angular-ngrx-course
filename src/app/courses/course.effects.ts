@@ -1,12 +1,19 @@
-import { LessonActionTypes } from './../lesson.actions';
-import { allCoursesLoaded } from './course.selector';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Store, select } from '@ngrx/store';
-import { map, mergeMap, withLatestFrom, filter } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
+import { filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 
 import { AppState } from './../reducers';
-import { AllCoursesLoaded, AllCoursesRequested, CourseActionTypes, CourseLoaded, CourseRequested, LessonsPageRequested, LessonsPageLoaded } from './course.action';
+import {
+    AllCoursesLoaded,
+    AllCoursesRequested,
+    CourseActionTypes,
+    CourseLoaded,
+    CourseRequested,
+    LessonsPageLoaded,
+    LessonsPageRequested,
+} from './course.action';
+import { allCoursesLoaded } from './course.selector';
 import { CoursesService } from './services/courses.service';
 
 @Injectable()
