@@ -1,21 +1,22 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material';
 import { ActivatedRoute } from '@angular/router';
-import { Store, select } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { tap } from 'rxjs/operators';
 
 import { AppState } from '../../reducers';
+import { selectLessonsLoading } from '../course.selector';
 import { Course } from '../model/course';
 import { LessonsDataSource } from '../services/lessons.datasource';
 import { PageQuery } from './../course.action';
-import { selectLessonsLoading } from '../course.selector';
 
 
 @Component({
     selector: 'course',
     templateUrl: './course.component.html',
-    styleUrls: ['./course.component.css']
+    styleUrls: ['./course.component.css'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseComponent implements OnInit, AfterViewInit {
 

@@ -13,10 +13,10 @@ export function searchLessons(req: Request, res: Response) {
 
     const error = (Math.random() >= 0.5);
 
-    if (error) {
-        console.log('ERROR loading lessons!');
-        res.status(500).json({message: 'random error occured.'});
-    } else {
+    // if (error) {
+    //     console.log('ERROR loading lessons!');
+    //     res.status(500).json({message: 'random error occured.'});
+    // } else {
         const queryParams = req.query;
 
         const courseId = parseInt(queryParams.courseId, 0),
@@ -42,5 +42,5 @@ export function searchLessons(req: Request, res: Response) {
         setTimeout(() => {
             res.status(200).json({ payload: lessonsPage });
         }, 1000);
-    }
+    // }
 }
