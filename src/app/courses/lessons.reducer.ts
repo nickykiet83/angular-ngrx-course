@@ -38,6 +38,12 @@ export function lessonsReducer(state = intialLessonsState, action: CourseActions
             return adapter.addMany(action.payload.lessons,
                 { ...state, loading: false });
 
+        case CourseActionTypes.LessonsPageCancelled:
+            return {
+                ...state,
+                loading: false,
+            };
+
         default:
             return state;
     }

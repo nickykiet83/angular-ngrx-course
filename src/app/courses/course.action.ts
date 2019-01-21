@@ -64,6 +64,7 @@ export class LessonsPageLoaded implements Action {
 }
 export class LessonsPageCancelled implements Action {
     readonly type = CourseActionTypes.LessonsPageCancelled;
+
 }
 
 export type CourseActions =
