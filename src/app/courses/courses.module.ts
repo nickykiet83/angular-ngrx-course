@@ -22,7 +22,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 
 import { CourseDialogComponent } from './course-dialog/course-dialog.component';
-import { CourseEffects } from './course.effects';
+import { CourseEffects } from './course.effect';
 import { coursesReducer } from './course.reducer';
 import { CourseComponent } from './course/course.component';
 import { CoursesCardListComponent } from './courses-card-list/courses-card-list.component';
