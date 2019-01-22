@@ -4,8 +4,8 @@ import {AuthActions, AuthActionTypes} from './auth.actions';
 
 
 export interface AuthState {
-  loggedIn: boolean,
-  user: User
+  loggedIn: boolean;
+  user: User;
 }
 
 export const initialAuthState: AuthState = {
