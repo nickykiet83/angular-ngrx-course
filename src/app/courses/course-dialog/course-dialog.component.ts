@@ -7,7 +7,7 @@ import {CoursesService} from "../services/courses.service";
 import {AppState} from "../../reducers";
 import {Store} from "@ngrx/store";
 import {Update} from "@ngrx/entity";
-import {CourseSaved} from '../course.actions';
+import {CourseSaved} from '../course.action';
 
 @Component({
     selector: 'course-dialog',

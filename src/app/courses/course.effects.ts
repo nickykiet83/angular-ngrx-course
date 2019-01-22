@@ -7,13 +7,13 @@ import {
   CourseLoaded,
   CourseRequested, LessonsPageCancelled, LessonsPageLoaded,
   LessonsPageRequested
-} from './course.actions';
-import {throwError,of} from 'rxjs';
+} from './course.action';
+import {throwError, of} from 'rxjs';
 import {catchError, concatMap, exhaustMap, filter, map, mergeMap, withLatestFrom} from "rxjs/operators";
 import {CoursesService} from './services/courses.service';
 import {AppState} from '../reducers';
 import {select, Store} from '@ngrx/store';
-import {allCoursesLoaded} from './course.selectors';
+import {allCoursesLoaded} from './course.selector';
 
 @Injectable()
 export class CourseEffects {

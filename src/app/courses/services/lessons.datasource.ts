@@ -8,8 +8,8 @@ import {CoursesService} from "./courses.service";
 import {catchError, finalize, tap} from 'rxjs/operators';
 import {AppState} from '../../reducers';
 import {select, Store} from '@ngrx/store';
-import {LessonsPageRequested, PageQuery} from '../course.actions';
-import {selectLessonsPage} from '../course.selectors';
+import {LessonsPageRequested, PageQuery} from '../course.action';
+import {selectLessonsPage} from '../course.selector';
 
 
 
