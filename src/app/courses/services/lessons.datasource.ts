@@ -1,15 +1,15 @@
 
 
 
-import {CollectionViewer, DataSource} from "@angular/cdk/collections";
-import {Observable, BehaviorSubject, of} from "rxjs";
-import {Lesson} from "../model/lesson";
-import {CoursesService} from "./courses.service";
-import {catchError, finalize, tap} from 'rxjs/operators';
-import {AppState} from '../../reducers';
-import {select, Store} from '@ngrx/store';
-import {LessonsPageRequested, PageQuery} from '../course.action';
-import {selectLessonsPage} from '../course.selector';
+import { CollectionViewer, DataSource } from "@angular/cdk/collections";
+import { Observable, BehaviorSubject, of } from "rxjs";
+import { Lesson } from "../model/lesson";
+import { CoursesService } from "./courses.service";
+import { catchError, finalize, tap } from 'rxjs/operators';
+import { AppState } from '../../reducers';
+import { select, Store } from '@ngrx/store';
+import { LessonsPageRequested, PageQuery } from '../course.action';
+import { selectLessonsPage } from '../course.selector';
 
 
 
@@ -21,21 +21,20 @@ export class LessonsDataSource implements DataSource<Lesson> {
 
     }
 
-    loadLessons(courseId:number, page: PageQuery) {
+    loadLessons(courseId: number, page: PageQuery) {
         this.store
-          .pipe(
-            select(selectLessonsPage(courseId, page)),
-            tap(lessons => {
-              if (lessons.length > 0) {
-                this.lessonsSubject.next(lessons);
-              }
-              else {
-                this.store.dispatch(new LessonsPageRequested({courseId, page}));
-              }
-            }),
-            catchError(() => of([]))
-          )
-          .subscribe();
+            .pipe(
+                select(selectLessonsPage(courseId, page)),
+                tap(lessons => {
+                    if (lessons.length > 0) {
+                        this.lessonsSubject.next(lessons);
+                    } else {
+                        this.store.dispatch(new LessonsPageRequested({ courseId, page }));
+                    }
+                }),
+                catchError(() => of([]))
+            )
+            .subscribe();
 
     }
 
